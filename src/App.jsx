@@ -38,9 +38,7 @@ export default function App() {
           <p className="tagline">
             Pixel-brained. Tech-obsessed. Making stuff that matters — one block at a time.
           </p>
-          <div className="stats">
-            <span><strong>{images.length}</strong> posts</span>
-          </div>
+         
         </div>
       </header>
 

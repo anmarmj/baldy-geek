@@ -117,7 +117,7 @@ body {
 
 .cell {
   position: relative;
-  aspect-ratio: 1;
+  aspect-ratio: 3/4;
   overflow: hidden;
   display: block;
   background: var(--surface);
