@@ -1,20 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@400;600;700;900&display=swap');
 
-/* ── Reset & Base ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+/* ── Variables ── */
 :root {
-  --bg:        #0d0d0d;
-  --surface:   #161616;
-  --border:    #2a2a2a;
-  --accent:    #c8922a;   /* golden tan — matches the logo character */
+  --bg:        #0a0a0a;
+  --surface:   #141414;
+  --surface2:  #1e1e1e;
+  --border:    #252525;
+  --accent:    #c8922a;
   --accent2:   #e8b04a;
   --text:      #f0f0f0;
-  --muted:     #888;
-  --radius:    3px;
+  --muted:     #666;
+  --tab-h:     36px;
+  --radius:    4px;
   --gap:       3px;
 }
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -23,91 +24,239 @@ body {
   font-family: 'Barlow', sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* ── Page ── */
+/* ── Page wrapper ── */
 .page {
   max-width: 935px;
   margin: 0 auto;
-  padding: 0 16px;
 }
 
-/* ── Profile Header ── */
-.profile {
+/* ── Hero ── */
+.hero {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 40px;
-  padding: 48px 0 32px;
+  padding: 48px 20px 32px;
+  text-align: center;
 }
 
 .logo-wrap {
-  flex-shrink: 0;
-  width: 120px;
-  height: 120px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: #111;
-  border: 2px solid var(--border);
+  width: 200px;
+  height: 80px;
+  margin-bottom: 20px;
   image-rendering: pixelated;
-  position: relative;
-}
-
-.logo-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  box-shadow: inset 0 0 0 2px rgba(200,146,42,0.15);
-  border-radius: var(--radius);
 }
 
 .logo {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 6px;
   image-rendering: pixelated;
 }
 
 .bio {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 0.04em;
+  direction: rtl;
+}
+
+.socials {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, opacity 0.2s;
+  color: #fff;
+}
+
+.social-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  opacity: 0.85;
+}
+
+.social-btn.youtube   { background: #FF0000; }
+.social-btn.instagram { background: radial-gradient(circle at 30% 110%, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888); }
+.social-btn.tiktok    { background: #010101; border: 1px solid #333; }
+.social-btn.facebook  { background: #1877F2; }
+
+/* ── Games section ── */
+.games-section {
+  padding: 0 0 0 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  direction: rtl;
+}
+
+.games-track {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  cursor: grab;
+  padding: 12px 16px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+}
+.games-track::-webkit-scrollbar { display: none; }
+
+/* ── Game card ── */
+.game-card {
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s;
+  outline: none;
+}
+.game-card:hover { opacity: 0.85; }
+
+.game-img-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 2px solid var(--border);
+  background: var(--surface2);
+  transition: border-color 0.2s;
+}
+.game-card.active .game-img-wrap {
+  border-color: var(--accent);
+}
+.game-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
 }
 
-.handle {
+.game-active-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+.game-label {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 1.5rem;
-  color: var(--text);
-  letter-spacing: -0.5px;
-}
-
-.tagline {
-  font-size: 0.9rem;
+  font-size: 0.65rem;
   color: var(--muted);
-  max-width: 380px;
-  line-height: 1.55;
+  text-align: center;
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.game-card.active .game-label {
+  color: var(--accent);
 }
 
-.stats {
+/* ── Skeleton game card ── */
+.game-skeleton {
+  flex-shrink: 0;
+  width: 80px;
+  height: 104px;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--surface2) 25%, #232323 50%, var(--surface2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+/* ── Tabs ── */
+.tabs-wrap {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+   direction: rtl;
+}
+
+.tabs-track {
   display: flex;
-  gap: 24px;
-  font-size: 0.875rem;
+  gap: 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+  padding: 0 12px;
+}
+.tabs-track::-webkit-scrollbar { display: none; }
+
+.tab {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  padding: 0 16px;
+  height: var(--tab-h);
+  transition: color 0.18s, border-color 0.18s;
+  white-space: nowrap;
+  outline: none;
+}
+.tab:hover { color: var(--text); }
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
-.stats strong {
-  color: var(--text);
-  font-weight: 700;
-}
-
-/* ── Divider ── */
-.divider {
-  height: 1px;
-  background: var(--border);
-  margin-bottom: 0;
+.tab-skeleton {
+  flex-shrink: 0;
+  width: 72px;
+  height: var(--tab-h);
+  margin: 0 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--surface2) 25%, #232323 50%, var(--surface2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  align-self: center;
 }
 
 /* ── Gallery ── */
-.gallery-wrap { padding: 0; }
+.gallery-wrap {
+  min-height: 400px;
+  padding-bottom: 32px;
+   direction: rtl;
+}
 
 .gallery {
   display: grid;
@@ -115,13 +264,15 @@ body {
   gap: var(--gap);
 }
 
+/* ── Cell ── */
 .cell {
   position: relative;
-  aspect-ratio: 3/4;
+  aspect-ratio: 4/5;
   overflow: hidden;
   display: block;
   background: var(--surface);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .cell img {
@@ -129,14 +280,12 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              filter 0.35s ease;
-  filter: grayscale(0%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.35s ease;
 }
 
 .cell:hover img {
-  transform: scale(1.05);
-  filter: brightness(0.45);
+  transform: scale(1.06);
+  filter: brightness(0.4);
 }
 
 .overlay {
@@ -148,85 +297,70 @@ body {
   justify-content: center;
   gap: 8px;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.22s ease;
   pointer-events: none;
+  padding: 12px;
 }
 
 .cell:hover .overlay { opacity: 1; }
 
 .img-title {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--text);
   text-align: center;
-  padding: 0 12px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
 }
 
 .open-icon {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: var(--accent);
   font-weight: 700;
   line-height: 1;
-  transition: transform 0.2s ease;
+  transition: transform 0.18s ease;
 }
-
 .cell:hover .open-icon { transform: translate(2px, -2px); }
 
-/* ── Skeleton Loader ── */
-.loader {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--gap);
-}
-
-.skeleton {
-  aspect-ratio: 1;
-  background: linear-gradient(
-    90deg,
-    var(--surface) 25%,
-    #222 50%,
-    var(--surface) 75%
-  );
+/* ── Skeleton cell ── */
+.skeleton-cell {
+  aspect-ratio: 4/5;
+  background: linear-gradient(90deg, var(--surface) 25%, #1c1c1c 50%, var(--surface) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
 }
 
+/* ── Shimmer animation ── */
 @keyframes shimmer {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-/* ── Empty / Error ── */
+/* ── Empty ── */
 .empty {
   text-align: center;
-  padding: 80px 0;
+  padding: 80px 20px;
   color: var(--muted);
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
 }
 
 /* ── Footer ── */
 .foot {
   text-align: center;
-  padding: 32px 0 24px;
+  padding: 24px 0 32px;
   color: var(--border);
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
 }
 
-/* ── Responsive ── */
-@media (max-width: 640px) {
-  .profile {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 28px 0 20px;
-  }
-
-  .logo-wrap { width: 86px; height: 86px; }
-  .handle { font-size: 1.15rem; }
-
-  .gallery { grid-template-columns: repeat(3, 1fr); gap: 2px; }
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .hero { padding: 32px 16px 24px; }
+  .logo-wrap { width: 160px; height: 70px; }
+  .game-img-wrap { width: 68px; height: 68px; }
+  .game-skeleton { width: 68px; height: 90px; }
+  .gallery { gap: 2px; }
 }
