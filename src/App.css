@@ -102,9 +102,9 @@ body {
 /* ── Games section ── */
 .games-section {
   padding: 0 0 0 0;
-  border-top: 1px solid var(--border);
+  /*border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  background: var(--surface);
+  background: var(--surface);*/
   direction: rtl;
 }
 
@@ -267,7 +267,7 @@ body {
 /* ── Cell ── */
 .cell {
   position: relative;
-  aspect-ratio: 4/5;
+  aspect-ratio: 9/16;
   overflow: hidden;
   display: block;
   background: var(--surface);
@@ -350,10 +350,14 @@ body {
 .foot {
   text-align: center;
   padding: 24px 0 32px;
-  color: var(--border);
+  color: #666;
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.65rem;
   letter-spacing: 0.12em;
+}
+.foot a{
+    color: #5679ec;
+    text-decoration: none;
 }
 
 /* ── Mobile ── */

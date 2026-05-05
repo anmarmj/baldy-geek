@@ -6,13 +6,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDCusL_KxpggzDW_itcypQllbYLzT5LmG8",
-    authDomain: "baldy-geek.firebaseapp.com",
-    projectId: "baldy-geek",
-    storageBucket: "baldy-geek.firebasestorage.app",
-    messagingSenderId: "903253310999",
-    appId: "1:903253310999:web:a67ae77998506c3b696652",
-    measurementId: "G-EJE1XPXGKX"
+   apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
