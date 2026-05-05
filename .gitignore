@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+.env.local
+.firebase
+DETAILED_SETUP_GUIDE.md
+SETUP_GUIDE.md

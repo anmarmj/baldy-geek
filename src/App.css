@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@400;600;700&display=swap');
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0d0d0d;
+  --surface:   #161616;
+  --border:    #2a2a2a;
+  --accent:    #c8922a;   /* golden tan — matches the logo character */
+  --accent2:   #e8b04a;
+  --text:      #f0f0f0;
+  --muted:     #888;
+  --radius:    3px;
+  --gap:       3px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Page ── */
+.page {
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ── Profile Header ── */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 48px 0 32px;
+}
+
+.logo-wrap {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #111;
+  border: 2px solid var(--border);
+  image-rendering: pixelated;
+  position: relative;
+}
+
+.logo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 2px rgba(200,146,42,0.15);
+  border-radius: var(--radius);
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+  image-rendering: pixelated;
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.handle {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.5rem;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 380px;
+  line-height: 1.55;
+}
+
+.stats {
+  display: flex;
+  gap: 24px;
+  font-size: 0.875rem;
+}
+
+.stats strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 0;
+}
+
+/* ── Gallery ── */
+.gallery-wrap { padding: 0; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+
+.cell {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  display: block;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.35s ease;
+  filter: grayscale(0%);
+}
+
+.cell:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.45);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.cell:hover .overlay { opacity: 1; }
+
+.img-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text);
+  text-align: center;
+  padding: 0 12px;
+  letter-spacing: 0.05em;
+}
+
+.open-icon {
+  font-size: 1.6rem;
+  color: var(--accent);
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.cell:hover .open-icon { transform: translate(2px, -2px); }
+
+/* ── Skeleton Loader ── */
+.loader {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+
+.skeleton {
+  aspect-ratio: 1;
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    #222 50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Empty / Error ── */
+.empty {
+  text-align: center;
+  padding: 80px 0;
+  color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+}
+
+/* ── Footer ── */
+.foot {
+  text-align: center;
+  padding: 32px 0 24px;
+  color: var(--border);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .profile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 28px 0 20px;
+  }
+
+  .logo-wrap { width: 86px; height: 86px; }
+  .handle { font-size: 1.15rem; }
+
+  .gallery { grid-template-columns: repeat(3, 1fr); gap: 2px; }
+}
